@@ -46,7 +46,6 @@ def tests():
     q5a = costDenoise(im,u,lamb=0,epsilon=0.5)==5.0
     q5b = costDenoise(im,u,lamb=1,epsilon=0) ==11.478708664619075
  
-    '''
     im_denoised_ls=denoiseImageLeastSquare(im,lamb=5)
     q6a=abs((im_denoised_ls - np.array([
            [ 1.8117829 ,  1.7761033 ,  1.65832824,  1.3819402 ],
@@ -64,7 +63,7 @@ def tests():
         [[ 1.71428673,  1.71428616,  1.71428502,  1.71428331],
          [ 1.71428802,  1.71428645,  1.71428431,  0.        ]]))).max()<1e-8      
     
-
+    '''
     im=np.array([[1,2,3,0],[3,2,1,0]])  
     im_denoised_ROF,costs=denoiseImageROF(im,lamb=5,nb_iter=10,epsilon=0.5,display=True,tol=0.01,u0=None)
     q7_10a=np.max(abs(np.array(costs)-np.array(([35.246883904340372, 16.067452009595058, 14.181431579403343, 13.934999069773578, 13.904840013576258]))))<1e-8
@@ -84,9 +83,13 @@ def tests():
     q11=np.max(abs(np.array(im_denoised_ROF)-np.array(
        [[ 1.07091148,  2.69607282,  2.89812404,  0.04175379],
        [ 2.96186413,  2.69607282,  1.02734661,  0.        ]])))<1e-8    
+    '''
+    q7_10a = 0
+    q7_10b = 0
+    q11 = 0
     
     note=1*q1+1*q2a+1*q2b+1*q3a+1*q3b+2*q4+1*q5a+1*q5b+1*q6a+1*q6b+1*q6c+3*q7_10a + 3*q7_10b+2*q11
-    '''
+    print(note)
       
 if __name__ == "__main__":
     tests()    

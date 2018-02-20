@@ -133,7 +133,7 @@ def denoiseImageLeastSquare(im,lamb,u0=None):
     u = u * lamb
     u = u + np.identity(u.shape[0])
     u = np.linalg.inv(u)*im.reshape(-1,1)
-    
+    u = u.reshape((im.shape[0], im.shape[1]))
     return u
 
 
@@ -292,17 +292,12 @@ def main():
     # [ 1.71428802  1.71428645  1.71428431  0.        ]] 
     
     
-    '''
     im_denoised_ROF,costs=denoiseImageROF(im,lamb=5,nb_iter=10,epsilon=0.5,display=False,tol=0.01,u0=None)
     print costs
     #[35.246883904340372, 16.067452009595062, 14.181431579403345, 13.934999069773578, 13.904840013576258]
     print im_denoised_ROF
     #[[ 1.82061273  1.78843083  1.67915002  1.32103773]
     # [ 2.03211635  1.82434463  1.53430771  0.        ]]   
-    
-    
-
-    
     
     # debruitage de l'image
     im=np.array(imread('einstein.jpg'))
@@ -346,8 +341,5 @@ def main():
     plt.imshow(im,cmap=plt.cm.Greys_r)
     im_inpaint,costs=denoiseImageROF(im,lamb=1,nb_iter=100,epsilon=0.2,display=True,tol=0.001,u0=None,dataWeights=mask) 
       
-   
-    '''
-    
 if __name__ == "__main__":
     main()
