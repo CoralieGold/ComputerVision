@@ -98,11 +98,7 @@ def scoresBruteForce(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     scores = np.zeros((nb_rhos, nb_thetas))
     for i in range(nb_rhos):
 		for j in range(nb_thetas):
-			scores[i][j] = 0
-
-			for k in range(len(points)):
-				if(distancePointsLine(points[k], rho_grid[i], theta_grid[j]) < tau):
-					scores[i][j] += 1
+			scores[i][j] = len(points[distancePointsLine(points, rho_grid[i], theta_grid[j]) < tau])
  
     return scores
 
