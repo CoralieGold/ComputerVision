@@ -54,7 +54,7 @@ def HarrisCorners(im,sigma1,sigma2,k=0.06):
     R= HarrisScore(im,sigma1=sigma1,sigma2=sigma2,k=0.06)
     import skimage.feature
     #TODO : implement this function by calling skimage.feature.peak.peak_local_max
-    peaks = skimage.feature.peak_local_max(R, min_distance=2, threshold_rel=0.005)
+    peaks = skimage.feature.peak_local_max(R, min_distance=2, threshold_rel=0.005)[::-1]
     return peaks
 
 def displayPeaks(im,peaks):
@@ -95,11 +95,17 @@ def SSDTable(patches1,patches2):
     return table
         
         
-def NCCTable(patches1, patches2):
-    table = np.zeros((patches1.shape[0], patches2.shape[0]))
-    for i in range(patches1.shape[0]):
-        for j in range(patches2.shape[0]):
-			table[i, j] = 1 - np.correlate(patches1[i][j], patches2[i][j])
+def NCCTable(patches1,patches2):
+    """this function computes the sum of square differences between each gopair of patches"""
+    #TODO implement this function
+    normalize = lambda x: (x / np.linalg.norm(x))
+      
+    table = np.ndarray((len(patches1), len(patches2)))
+    for i in range(len(patches1)):
+        for j in range(len(patches2)):
+			patch1 = normalize(patches1[i] - patches1[i].mean()) 
+			patch2 = normalize(patches2[j] - patches2[j].mean())
+			table[i, j] = 1 - np.sum(np.multiply(patch1,patch2))
     return table
         
         
