@@ -55,7 +55,6 @@ def HarrisCorners(im,sigma1,sigma2,k=0.06):
     import skimage.feature
     #TODO : implement this function by calling skimage.feature.peak.peak_local_max
     peaks = skimage.feature.peak_local_max(R, min_distance=2, threshold_rel=0.005)
-    
     return peaks
 
 def displayPeaks(im,peaks):
@@ -100,7 +99,7 @@ def NCCTable(patches1, patches2):
     table = np.zeros((patches1.shape[0], patches2.shape[0]))
     for i in range(patches1.shape[0]):
         for j in range(patches2.shape[0]):
-			table[i, j] = 1 - np.correlate(patches1.shape[0], patches2.shape[0])
+			table[i, j] = 1 - np.correlate(patches1[i][j], patches2[i][j])
     return table
         
         
@@ -243,7 +242,7 @@ def main():
     N=21
     patches1=extractPatches(im1,corners1,N)  
  
-    displayPatch(im1,corners1,patches1)
+    #displayPatch(im1,corners1,patches1)
     
     print(extractPatches(im1,np.array([[150,300],[200,270]]),3) )
     #array([[[ 37.66666667,  41.66666667,  44.33333333],
@@ -268,26 +267,14 @@ def main():
            #[ 160000.,   75625.,   22500.,     625.]])    
            
     table=SSDTable(patches1,patches2)   
-    
-    print("#################")
-    print("Extract matches")
+
     matches1,matches2=extractMatches(table,threshold=0.7)
     p1=corners1[matches1,:]
     p2=corners2[matches2,:]
-    displayMatches(im1,im2,p1,p2)
-    plt.ioff()
-    displayMatches2(im1,im2,p1,p2)
+    #displayMatches(im1,im2,p1,p2)
+    #plt.ioff()
+    #displayMatches2(im1,im2,p1,p2)
     
-
-    
-   
-    
-
 
 if __name__ == "__main__":
     main()
-
-
-
-
-

@@ -109,14 +109,13 @@ def test():
     table=SSDTable(patches1,patches2)   
     
     m.print_note()
-    
+
     matches1,matches2=extractMatches(table,threshold=0.7)
     p1=corners1[matches1,:]
     p2=corners2[matches2,:]
-    displayMatches(im1,im2,p1,p2)
-    plt.ioff()
-    displayMatches2(im1,im2,p1,p2)
-    
+    #displayMatches(im1,im2,p1,p2)
+    #plt.ioff()
+    #displayMatches2(im1,im2,p1,p2)
     
     
 
