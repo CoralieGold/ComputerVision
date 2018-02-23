@@ -87,8 +87,6 @@ def rhoIdsFromRhos(rhos,min_rho,max_rho,nb_rhos):
     such that the user of the function can decide to use round, floor or ceil afterward"""
     delta_rho=(max_rho-min_rho)/(nb_rhos-1)
     return (rhos-min_rho)/delta_rho
-
-
     
 def scoresBruteForce(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     """this function loops over all angle/rho pairs and fill the score array using the inliers count"""
@@ -98,7 +96,7 @@ def scoresBruteForce(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     scores = np.zeros((nb_rhos, nb_thetas))
     for i in range(nb_rhos):
 		for j in range(nb_thetas):
-			scores[i][j] = len(points[distancePointsLine(points, rho_grid[i], theta_grid[j]) < tau])
+			scores[i][j] = countInliersLine(points, rho_grid[i], theta_grid[j], tau)
  
     return scores
 
@@ -110,7 +108,10 @@ def scoresSmoothBruteForce(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     #TODO finish coding this function
 
     # if you enjoy using numpy broadcasting you can avoid loops...but you should probably keep that for the end    
-
+    scores = np.zeros((nb_rhos, nb_thetas))
+    for i in range(nb_rhos):
+		for j in range(nb_thetas):
+			scores[i][j] = smoothLineScore(points, rho_grid[i], theta_grid[j], tau)
     
     return scores 
 
@@ -132,6 +133,9 @@ def scoresHough(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     # avoiding loops seems quite difficult here so go for loops
     # be careful with the "range" function the range(m,n) will give number ranging from m to n-1 and not to n  
     scores = np.zeros((nb_rhos, nb_thetas))
+    for i in range(nb_rhos):
+		for j in range(nb_thetas):
+			#scores[i][j] = countInliersLine(points, rho_grid[i], theta_grid[j], tau)
 
     return scores
 
@@ -141,7 +145,11 @@ def scoresHoughSmooth(points,tau,nb_thetas,min_rho,max_rho,nb_rhos):
     rho_grid,theta_grid=getRhoAndThetaGrid(nb_thetas,min_rho,max_rho,nb_rhos)  
     
      #TODO: implement this function, you can call getRhos  and h
-     
+    scores = np.zeros((nb_rhos, nb_thetas))
+    for i in range(nb_rhos):
+		for j in range(nb_thetas):
+			pass
+			#scores[i][j] = countInliersLine(points, rho_grid[i], theta_grid[j], tau)
 
     return scores
 
